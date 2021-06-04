@@ -17,10 +17,14 @@ maritalStatusEle.addEventListener('change', (e) => {
 
 function formatPrice(value) {
     let val = (value / 1).toFixed(0).replace('.', ',')
-    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+` IDR`
+    return `${'IDR ' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`
 }
 
 document.getElementById('button-submit').addEventListener('click', (e) => {
+    if(grossAmountInputEle.value == '' || grossAmountInputEle.value <= 0) {
+        alert('please input gross amount correctly') 
+        return
+    }
     let totalPPH = calculatePPH(grossAmountInputEle.value, maritalStatusInputEle.value, dependantInputEle.value)
-    resultPphEle.innerHTML = formatPrice(totalPPH)
+    resultPphEle.innerHTML = `Total PPH21: ${formatPrice(totalPPH)}`
 })
